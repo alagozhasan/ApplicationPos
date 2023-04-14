@@ -1,4 +1,26 @@
 # Getting Started with Create React App
+Bu benim ilk uçtan uca yani fullstack projem,geliştirme devam ediyor
+Kullandığım teknolojiler :
+MongoDB,React,NodeJS,ExpressJS
+
+This is my first end-to-end fullstack project, development continues
+Used Technologies:
+MongoDB, React, NodeJS, ExpressJS
+
+
+***
+İstatistik sayfası sizde çalışmazsa şu adımları izlemelisiniz.
+1-npm i ant-desing charts dediğinizde hatalar almanız gerekir.
+1A-Hataların içinde istenen uyumlu ant design sürümü belirtilir mevcut sürümünüzü bir yere not edip,istenen "eski" sürümü yükleyin.
+2-İstenen eski sürümü yükledikten sonra ant-design chartsı yükleyin
+3-Son olarak package.json dan ant:"^eski sürüm" yerine,daha önce not aldığınız mevcut sürümü yazın ve npm install diyerek yeniden o hale getirin.
+
+
+
+
+***
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
