@@ -31,7 +31,7 @@ const Edit = ({
       console.log(error);
     }
   };
-
+ 
   const deleteCategory = (id) => {
     if (window.confirm("Emin misiniz?")) {
       try {
