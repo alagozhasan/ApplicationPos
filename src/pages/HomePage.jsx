@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header/Header";
 import Categories from "../Components/categories/Categories";
 import Products from "../../../../ApplicationPos/client/src/Components/products/Product";
@@ -11,7 +11,10 @@ const HomePage = () => {
       try {
         const res = await fetch("http://localhost:5000/api/categories/get-all");
         const data =await res.json();
-        setCategories(data);
+      data &&   setCategories(data.map((item)=>{
+      return {...item,
+        value:item.title}
+      }));
       } catch (error) {
         console.log(error);
       }
@@ -31,7 +34,7 @@ const HomePage = () => {
           <Categories categories={categories} setCategories={setCategories}/>
         </div>
         <div className="products flex-[8] max-h-[calc(100vh_-_112px)] overflow-y-auto pb-10 min-h-[500px]">
-          <Products />
+          <Products categories={categories}/>
         </div>
         <div
           className="cart-wrapper min-w-[300px] md:-mr-[24px]
