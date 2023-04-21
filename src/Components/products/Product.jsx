@@ -1,11 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
-import { PlusOutlined,EditOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import Add from "./Add";
 import { useNavigate } from "react-router-dom";
-const Products = ({categories}) => {
+import { addProduct } from "../../redux/cartSlice";
+import { useDispatch } from "react-redux";
+import { message } from "antd";
+
+const Products = ({ categories }) => {
   const [products, setProducts] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-const navigate =useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -19,13 +23,20 @@ const navigate =useNavigate()
 
     getProducts();
   }, []);
-
+  const dispatch = useDispatch();
+  const handleClick = (item) => {
+    dispatch(addProduct({...item,quantity:1}));
+    message.success("Ürün Sepete Eklendi.")
+  };
   return (
     <div className="product-wrapper grid grid-cols-5">
       {products.map((item) => (
         <div
           className="product-item border hover:shadow-lg 
         cursor-pointer transition-all select-none "
+          onClick={() => {
+            handleClick(item);
+          }}
         >
           <div className="product-image"></div>
           <img
@@ -43,7 +54,8 @@ const navigate =useNavigate()
       <div
         className="product-item border hover:shadow-lg 
         cursor-pointer transition-all select-none p-1 bg-purple-600
-        flex justify-center items-center hover:opacity-90 min-h-[180px]" onClick={()=>setIsAddModalOpen(true)}
+        flex justify-center items-center hover:opacity-90 min-h-[180px]"
+        onClick={() => setIsAddModalOpen(true)}
       >
         <PlusOutlined className="text-white md:text-3xl" />
       </div>
@@ -51,12 +63,16 @@ const navigate =useNavigate()
         className="product-item border hover:shadow-lg 
         cursor-pointer transition-all select-none p-1 bg-orange-600
         flex justify-center items-center hover:opacity-90 min-h-[180px]"
-        onClick={()=> navigate("/urunler")}
+        onClick={() => navigate("/urunler")}
       >
         <EditOutlined className="text-white md:text-3xl" />
       </div>
-      <Add isAddModalOpen={isAddModalOpen} setIsAddModalOpen={setIsAddModalOpen} categories={categories}
-      setProducts={setProducts} products={products}
+      <Add
+        isAddModalOpen={isAddModalOpen}
+        setIsAddModalOpen={setIsAddModalOpen}
+        categories={categories}
+        setProducts={setProducts}
+        products={products}
       />
     </div>
   );
