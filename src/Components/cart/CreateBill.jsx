@@ -19,7 +19,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
           cartItems: cart.cartItems,
         }),
         headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
+      }); 
       if (res.status === 200) {
         message.success("Fatura başarıyla kaydedildi.");
         dispatch(reset());
