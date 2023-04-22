@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Components/Header/Header";
 import Categories from "../Components/categories/Categories";
-import Products from "../../../../ApplicationPos/client/src/Components/products/Product";
+import Products from "../Components/products";
 import CartTotals from "../Components/cart/cartTotals";
 import { Spin } from "antd";
 
@@ -13,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch(process.env.REACT_APP_SERVER_URL+"/api/categories/get-all");
+        const res = await fetch("http://localhost:5000/api/categories/get-all");
         const data = await res.json();
         data &&
           setCategories(
