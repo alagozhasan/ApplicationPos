@@ -1,78 +1,40 @@
-import React, { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import ProductItem from "./Product_Item";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import Add from "./Add";
 import { useNavigate } from "react-router-dom";
-import { addProduct } from "../../redux/cartSlice";
-import { useDispatch } from "react-redux";
-import { message } from "antd";
 
-const Products = ({ categories }) => {
-  const [products, setProducts] = useState([]);
+const Products = ({ categories, filtered, products, setProducts, search }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/products/get-all");
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
-    getProducts();
-  }, []);
-  const dispatch = useDispatch();
-  const handleClick = (item) => {
-    dispatch(addProduct({...item,quantity:1}));
-    message.success("Ürün Sepete Eklendi.")
-  };
   return (
-    <div className="product-wrapper grid grid-cols-5">
-      {products.map((item) => (
-        <div
-          className="product-item border hover:shadow-lg 
-        cursor-pointer transition-all select-none "
-          onClick={() => {
-            handleClick(item);
-          }}
-        >
-          <div className="product-image"></div>
-          <img
-            className="h-28 object-cover w-full border-b"
-            src={item.img}
-            alt="Görsel silinmiş olabilir tekrar yüklerin"
-          />
-          <div className="product-info flex flex-col p-3">
-            <span className="font-bold">{item.title}</span>
-            <span>{item.price}₺</span>
-          </div>
-        </div>
-      ))}
+    <div className="products-wrapper grid grid-cols-5 gap-4">
+      {filtered
+        .filter((product) => product.title.toLowerCase().includes(search))
+
+        .map((item) => (
+          <ProductItem item={item} key={item._id} />
+        ))}
 
       <div
-        className="product-item border hover:shadow-lg 
-        cursor-pointer transition-all select-none p-1 bg-purple-600
-        flex justify-center items-center hover:opacity-90 min-h-[180px]"
+        className="product-item border hover:shadow-lg cursor-pointer transition-all select-none bg-purple-800 flex justify-center items-center hover:opacity-90 min-h-[180px]"
         onClick={() => setIsAddModalOpen(true)}
       >
-        <PlusOutlined className="text-white md:text-3xl" />
+        <PlusOutlined className="text-white md:text-2xl" />
       </div>
       <div
-        className="product-item border hover:shadow-lg 
-        cursor-pointer transition-all select-none p-1 bg-orange-600
-        flex justify-center items-center hover:opacity-90 min-h-[180px]"
+        className="product-item border hover:shadow-lg cursor-pointer transition-all select-none bg-orange-800 flex justify-center items-center hover:opacity-90 min-h-[180px]"
         onClick={() => navigate("/urunler")}
       >
-        <EditOutlined className="text-white md:text-3xl" />
+        <EditOutlined className="text-white md:text-2xl" />
       </div>
       <Add
         isAddModalOpen={isAddModalOpen}
         setIsAddModalOpen={setIsAddModalOpen}
         categories={categories}
-        setProducts={setProducts}
         products={products}
+        setProducts={setProducts}
       />
     </div>
   );

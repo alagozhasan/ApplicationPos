@@ -14,13 +14,16 @@ const Login = () => {
         body: JSON.stringify(values),
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
-      const user=await res.json();
-   
+      const user = await res.json();
+
       if (res.status === 200) {
-        localStorage.setItem("posUser",JSON.stringify({
-        userName:user.userName,
-        email:user.email
-        }))
+        localStorage.setItem(
+          "posUser",
+          JSON.stringify({
+            userName: user.userName,
+            email: user.email,
+          })
+        );
         message.success("Giriş işlemi başarılı.");
         navigate("/");
       } else if (res.status === 404) {
@@ -29,19 +32,20 @@ const Login = () => {
         message.error("Lütfen bilgilerini kontrol et!");
       }
       setLoading(false);
+      message.error("Birşeyler yanlış gitti.");
     } catch (error) {
       console.log(error);
       message.error("Birşeyler yanlış gitti.");
       setLoading(false);
-
-    } 
-    console.log(values);
+    }
   };
   return (
     <div className="h-screen">
       <div className="flex justify-between h-full">
         <div className="xl:px-20 px-10 flex flex-col h-full justify-center w-full relative">
-          <h1 className="text-center text-5xl font-bold mb-2 ">LOGO</h1>
+          <h1 className="text-center text-5xl font-bold mb-2 cursor-pointer select-none">
+            LOGO
+          </h1>
           <Form
             layout="vertical"
             onFinish={onFinish}

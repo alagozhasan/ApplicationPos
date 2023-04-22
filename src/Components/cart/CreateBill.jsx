@@ -1,4 +1,13 @@
-import { Button, Card, Form, Input, Modal, Select, message } from "antd";
+import {
+  Button,
+  Card,
+  Form,
+  Input,
+  Modal,
+  Select,
+  message,
+  notification,
+} from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { reset } from "../../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +15,23 @@ import { useNavigate } from "react-router-dom";
 const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const { Option } = Select;
+
+  function handleSelect(value, option) {
+    if (value === "Kart") {
+      notification.success({
+        message: "Bilgilendirme!",
+        description: "Kart ödemesini aldığınızı varsayıyorum. Kolay gelsin!",
+      });
+    }else{
+      notification.success({
+        message: "Bilgilendirme!",
+        description: "Nakit ödemeyi aldığınızı varsayıyorum. Kolay gelsin!",
+      });
+    }
+  }
+
   const onFinish = async (values) => {
     try {
       const res = await fetch("http://localhost:5000/api/bills/add-bill", {
@@ -19,7 +44,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
           cartItems: cart.cartItems,
         }),
         headers: { "Content-type": "application/json; charset=UTF-8" },
-      }); 
+      });
       if (res.status === 200) {
         message.success("Fatura başarıyla kaydedildi.");
         dispatch(reset());
@@ -62,7 +87,7 @@ const CreateBill = ({ isModalOpen, setIsModalOpen }) => {
             { required: true, message: "Bu alanın doldurulması zorunludur" },
           ]}
         >
-          <Select placeholder="Ödeme Yöntemi Seçiniz">
+          <Select placeholder="Ödeme Yöntemi Seçiniz" onSelect={handleSelect}>
             <Select.Option value="Nakit">Nakit</Select.Option>
             <Select.Option value="Kart">Kart</Select.Option>
           </Select>
