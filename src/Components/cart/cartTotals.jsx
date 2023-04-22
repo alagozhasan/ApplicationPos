@@ -108,7 +108,7 @@ const CartTotals = () => {
             disabled={cart.cartItems.length === 0}
             onClick={() => {
               if (window.confirm("Emin misiniz? \nÇünkü ben eminim ")) {
-                if (window.confirm("Silerim ama haberin olsun"))
+    
                   dispatch(reset());
                 message.success("Sepet Temizlendi.");
               }

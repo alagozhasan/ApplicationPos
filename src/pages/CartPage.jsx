@@ -1,4 +1,13 @@
-import { Button, Card, Input, Modal, Popconfirm, Space, Table, message } from "antd";
+import {
+  Button,
+  Card,
+  Input,
+  Modal,
+  Popconfirm,
+  Space,
+  Table,
+  message,
+} from "antd";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../Components/Header/Header";
@@ -7,7 +16,6 @@ import { MinusOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { increase, decrease, deleteCart } from "../redux/cartSlice";
 import Highlighter from "react-highlight-words";
 
-
 const CartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -15,7 +23,7 @@ const CartPage = () => {
   const searchInput = useRef(null);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -71,7 +79,7 @@ const CartPage = () => {
               width: 90,
             }}
           >
-          Temizle
+            Temizle
           </Button>
           <Button
             type="link"
@@ -141,13 +149,13 @@ const CartPage = () => {
       title: "Ürün Adı",
       dataIndex: "title",
       key: "title",
-      ...getColumnSearchProps("title")
+      ...getColumnSearchProps("title"),
     },
     {
       title: "Kategori",
       dataIndex: "category",
       key: "category",
-      ...getColumnSearchProps("category")
+      ...getColumnSearchProps("category"),
     },
     {
       title: "Ürün Fiyatı",
@@ -206,11 +214,7 @@ const CartPage = () => {
         return (
           <Popconfirm
             title={() => {
-              if (record.title.includes("TOGG")) {
-                return "Fetocüyseniz evet e basın";
-              } else {
-                return "Silmek istediğinize emin misiniz?";
-              }
+              return "Silmek istediğinize emin misiniz?";
             }}
             onConfirm={() => {
               dispatch(deleteCart(record));
@@ -238,7 +242,6 @@ const CartPage = () => {
           bordered
           pagination={false}
           scroll={{ x: 1200, y: 300 }}
-          
         />
         <div className="cart-total flex justify-end mt-4">
           <Card className="w-72">

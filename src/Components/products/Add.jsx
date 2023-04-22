@@ -12,7 +12,7 @@ const Add = ({
 
   const onFinish = (values) => {
     try {
-      fetch("http://localhost:5000/api/products/add-product", {
+      fetch(process.env.REACT_APP_SERVER_URL + "/api/products/add-product", {
         method: "POST",
         body: JSON.stringify(values),
         headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -27,7 +27,7 @@ const Add = ({
           price: Number(values.price),
         },
       ]);
-      setIsAddModalOpen(false)
+      setIsAddModalOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +73,7 @@ const Add = ({
         >
           <Select
             showSearch
-            placeholder="Search to Select"
+            placeholder="Tümü"
             optionFilterProp="children"
             filterOption={(input, option) =>
               (option?.title ?? "").includes(input)
@@ -83,7 +83,7 @@ const Add = ({
                 .toLowerCase()
                 .localeCompare((optionB?.title ?? "").toLowerCase())
             }
-            options={categories}
+            options={categories.filter((item) => item !== "Tümü")}
           />
         </Form.Item>
         <Form.Item className="flex justify-end mb-0">

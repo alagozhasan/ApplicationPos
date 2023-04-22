@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Badge, Input, message } from "antd";
+import { Badge, Input, Modal, message } from "antd";
 import {
   SearchOutlined,
   HomeOutlined,
@@ -18,11 +18,19 @@ const Header = ({ setSearch }) => {
   const navigate = useNavigate();
 
   const logOut = () => {
-    if (window.confirm("Çıkış yapmak istediğinize emin misiniz?")) {
-      localStorage.removeItem("posUser");
-      navigate("/login");
-      message.success("Çıkış işlemi başarılı.");
-    }
+    Modal.confirm({
+      title: "Çıkış Yap",
+      content: "Emin misiniz?",
+      okText: "Evet",
+      cancelText: "Hayır",
+      onOk() {
+        localStorage.removeItem("posUser");
+        navigate("/giris");
+        message.success("Çıkış işlemi başarılı.");
+      },
+    });
+
+    
   };
 
   return (
@@ -48,10 +56,10 @@ const Header = ({ setSearch }) => {
           />
         </div>
         <div className="menu-links">
-          <Link to={"/"} className={`menu-link ${
-            pathname === "/" && "active"
-
-          }`}>
+          <Link
+            to={"/"}
+            className={`menu-link ${pathname === "/" && "active"}`}
+          >
             <HomeOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Ana Sayfa</span>
           </Link>
@@ -60,40 +68,37 @@ const Header = ({ setSearch }) => {
             offset={[0, 0]}
             className="md:flex hidden"
           >
-            <Link to={"/sepet"} className={`menu-link ${
-              pathname === "/sepet" && "active"
-
-            }`}>
+            <Link
+              to={"/sepet"}
+              className={`menu-link ${pathname === "/sepet" && "active"}`}
+            >
               <ShoppingCartOutlined className="md:text-2xl text-xl" />
               <span className="md:text-xs text-[10px]">Sepet</span>
             </Link>
           </Badge>
-          <Link to={"/faturalar"} className={`menu-link ${
-            pathname === "/faturalar" && "active"
-
-          }`}>
+          <Link
+            to={"/faturalar"}
+            className={`menu-link ${pathname === "/faturalar" && "active"}`}
+          >
             <CopyOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Faturalar</span>
           </Link>
-          <Link to={"/musteriler"} className={`menu-link ${
-            pathname === "/musteriler" && "active"
-
-          }`}>
+          <Link
+            to={"/musteriler"}
+            className={`menu-link ${pathname === "/musteriler" && "active"}`}
+          >
             <UserOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">Müşteriler</span>
           </Link>
-          <Link to={"/istatistik"} className={`menu-link ${
-            pathname === "/istatistik" && "active"
-
-          }`}>
+          <Link
+            to={"/istatistik"}
+            className={`menu-link ${pathname === "/istatistik" && "active"}`}
+          >
             <BarChartOutlined className="md:text-2xl text-xl" />
             <span className="md:text-xs text-[10px]">İstatistikler</span>
           </Link>
           <div onClick={logOut}>
-            <Link className={`menu-link ${
-              pathname === "/" && "activeOut"
-
-            }`}>
+            <Link className={`menu-link ${pathname === "/" && "activeOut"}`}>
               <LogoutOutlined className="md:text-2xl text-xl" />
               <span className="md:text-xs text-[10px]">Çıkış</span>
             </Link>
@@ -104,10 +109,10 @@ const Header = ({ setSearch }) => {
           offset={[0, 0]}
           className="md:hidden flex"
         >
-          <Link to={"/sepet"} className={`menu-link ${
-            pathname === "/sepet" && "active"
-
-          }`}>
+          <Link
+            to={"/sepet"}
+            className={`menu-link ${pathname === "/sepet" && "active"}`}
+          >
             <ShoppingCartOutlined className="text-2xl" />
             <span className="md:text-xs text-[10px]">Sepet</span>
           </Link>

@@ -13,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/categories/get-all");
+        const res = await fetch(process.env.REACT_APP_SERVER_URL+"/api/categories/get-all");
         const data = await res.json();
         data &&
           setCategories(
@@ -31,10 +31,16 @@ const HomePage = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/products/get-all");
+        const res = await fetch(
+          process.env.REACT_APP_SERVER_URL + "/api/products/get-all"
+        );
+        console.log(res);
+        console.log("proccess", process.env.REACT_APP_SERVER_URL);
+
         const data = await res.json();
         setProducts(data);
       } catch (error) {
+        console.log("proccess", process.env.REACT_APP_SERVER_URL);
         console.log(error);
       }
     };
