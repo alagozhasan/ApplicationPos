@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Components/Header/Header";
 import Categories from "../Components/categories/Categories";
-import Products from "../Components/products";
+import Products from "../Components/products/Product";
 import CartTotals from "../Components/cart/cartTotals";
 import { Spin } from "antd";
 
