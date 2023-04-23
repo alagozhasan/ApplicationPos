@@ -3,10 +3,16 @@ Bu benim ilk uçtan uca yani fullstack projem,geliştirme devam ediyor
 Kullandığım teknolojiler :
 MongoDB,React,NodeJS,ExpressJS
 
+Projeyi deploy ettim:   https://hasan-alagoz-pos-application.onrender.com
+
+Linkten bakabilirsiniz
+
+Api Repos:https://github.com/alagozhasan/ApplicationPos-Api
+
 This is my first end-to-end fullstack project, development continues
 Used Technologies:
 MongoDB, React, NodeJS, ExpressJS
-
+On Deloy url:   https://hasan-alagoz-pos-application.onrender.com
 
 ***
 İstatistik sayfası sizde çalışmazsa şu adımları izlemelisiniz.
